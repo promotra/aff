@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>LeadEngine — Lead Lists That Actually Fit Your ICP</title>
+  <meta name="description" content="A bold, kinetic landing page to drive clicks to a Fiverr lead list + data mining + scraping service."/>
+  <meta name="theme-color" content="#0a0a10"/>
+
+  <style>
+    :root{
+      --bg:#070711;
+      --bg2:#09091a;
+      --ink:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --line:rgba(255,255,255,.12);
+      --glass:rgba(255,255,255,.06);
+      --glass2:rgba(255,255,255,.08);
+      --shadow: 0 20px 70px rgba(0,0,0,.55);
+      --shadow2: 0 10px 30px rgba(0,0,0,.45);
+      --r:18px;
+      --r2:26px;
+      --max:1200px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --pink:#ff2bd6;
+      --cyan:#00e5ff;
+      --lime:#b7ff00;
+      --orange:#ffb020;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(255,43,214,.18), transparent 58%),
+        radial-gradient(900px 600px at 85% 20%, rgba(0,229,255,.16), transparent 55%),
+        radial-gradient(900px 700px at 50% 100%, rgba(183,255,0,.10), transparent 60%),
+        linear-gradient(180deg, #06060d, #070711 35%, #06060d);
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{width:min(var(--max), 92vw); margin:0 auto;}
+
+    /* ---- Kinetic neon grid backdrop ---- */
+    .bg-grid{
+      position:fixed; inset:0;
+      pointer-events:none;
+      opacity:.22;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(circle at 50% 10%, black 55%, transparent 85%);
+      transform: perspective(900px) rotateX(55deg) translateY(-120px);
+      filter: blur(.3px);
+    }
+
+    /* ---- Floating neon particles ---- */
+    .particle{
+      position:absolute;
+      width:10px; height:10px;
+      border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,0) 55%),
+                  linear-gradient(135deg, rgba(255,43,214,.9), rgba(0,229,255,.9));
+      box-shadow: 0 0 0 10px rgba(255,43,214,.05), 0 20px 80px rgba(0,229,255,.20);
+      opacity:.6;
+      animation: drift 8s ease-in-out infinite;
+      pointer-events:none;
+      filter: blur(.2px);
+    }
+    @keyframes drift{
+      0%,100%{ transform: translate(0,0) scale(1); opacity:.55;}
+      50%{ transform: translate(20px,-26px) scale(1.08); opacity:.82;}
+    }
+
+    /* ---- Header (minimal, edgy) ---- */
+    .header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(7,7,17,.78), rgba(7,7,17,.35));
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .head-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap: 10px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:900; letter-spacing:.2px;
+    }
+    .mark{
+      width:38px;height:38px;border-radius:14px;
+      background:
+        radial-gradient(18px 18px at 25% 25%, rgba(255,255,255,.9), rgba(255,255,255,0) 60%),
+        linear-gradient(135deg, rgba(255,43,214,.95), rgba(0,229,255,.92));
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow: 0 18px 46px rgba(255,43,214,.18);
+      position:relative;
+      overflow:hidden;
+    }
+    .mark:after{
+      content:"";
+      position:absolute; inset:-60%;
+      background: conic-gradient(from 180deg, rgba(255,255,255,.00), rgba(255,255,255,.25), rgba(255,255,255,.00));
+      animation: sheen 2.6s linear infinite;
+      opacity:.65;
+    }
+    @keyframes sheen{
+      0%{ transform: rotate(0deg); }
+      100%{ transform: rotate(360deg); }
+    }
+
+    .status{
+      flex: 1 1 auto;
+      display:flex; align-items:center; gap:10px;
+      min-width:0;
+      padding: 10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-size:12px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .pulseDot{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--lime);
+      box-shadow: 0 0 0 5px rgba(183,255,0,.12);
+      position:relative;
+    }
+    .pulseDot:after{
+      content:"";
+      position:absolute; inset:-10px;
+      border-radius:999px;
+      border:1px solid rgba(183,255,0,.25);
+      animation: ring 1.8s ease-out infinite;
+      opacity:.7;
+    }
+    @keyframes ring{
+      0%{ transform: scale(.4); opacity:.75; }
+      100%{ transform: scale(1.2); opacity:0; }
+    }
+
+    /* ---- Buttons ---- */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--ink);
+      font-weight:900;
+      letter-spacing:.15px;
+      cursor:pointer;
+      transition: transform .14s ease, filter .14s ease, background .14s ease, border-color .14s ease;
+      user-select:none;
+      will-change: transform;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.22); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+
+    .btn-neon{
+      border-color: rgba(255,255,255,.20);
+      background:
+        radial-gradient(40px 18px at 20% 20%, rgba(255,255,255,.35), transparent 65%),
+        linear-gradient(135deg, rgba(255,43,214,.92), rgba(0,229,255,.90));
+      box-shadow: 0 24px 70px rgba(255,43,214,.18), 0 14px 40px rgba(0,229,255,.14);
+      position:relative;
+      overflow:hidden;
+    }
+    .btn-neon:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: conic-gradient(from 180deg, rgba(255,255,255,.0), rgba(255,255,255,.20), rgba(255,255,255,.0));
+      opacity:.45;
+      animation: glowSpin 2.8s linear infinite;
+      filter: blur(.2px);
+    }
+    @keyframes glowSpin{
+      0%{ transform: rotate(0deg); }
+      100%{ transform: rotate(360deg); }
+    }
+    .btn-neon span{ position:relative; z-index:1; }
+    .btn-neon .arrow{
+      width:18px;height:18px;border-radius:10px;
+      border:1px solid rgba(255,255,255,.30);
+      background: rgba(0,0,0,.18);
+      display:grid; place-items:center;
+      position:relative; z-index:1;
+    }
+
+    /* ---- Hero layout ---- */
+    .hero{
+      padding: 22px 0 10px;
+      position:relative;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding: 18px 0 26px;
+    }
+
+    /* Big “poster” card */
+    .poster{
+      border-radius: var(--r2);
+      border:1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(800px 220px at 20% 0%, rgba(255,43,214,.18), transparent 60%),
+        radial-gradient(620px 220px at 90% 25%, rgba(0,229,255,.14), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    /* Animated gradient stroke */
+    .poster:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: linear-gradient(90deg,
+        rgba(255,43,214,.0), rgba(255,43,214,.35),
+        rgba(0,229,255,.35), rgba(183,255,0,.22),
+        rgba(255,176,32,.25), rgba(255,43,214,.0)
+      );
+      filter: blur(10px);
+      opacity:.55;
+      animation: sweep 6s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes sweep{
+      0%,100%{ transform: translateX(-10%); }
+      50%{ transform: translateX(10%); }
+    }
+
+    .posterInner{ position:relative; padding: 18px; }
+
+    .chips{
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin-bottom: 12px;
+    }
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 9px 11px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.78);
+      font-size:12px;
+    }
+    .chip i{
+      width:10px;height:10px;border-radius:50%;
+      background: linear-gradient(135deg, var(--pink), var(--cyan));
+      box-shadow: 0 0 0 5px rgba(255,43,214,.10);
+      display:inline-block;
+    }
+
+    h1{
+      margin: 8px 0 10px;
+      font-size: clamp(32px, 7vw, 64px);
+      line-height: 1.02;
+      letter-spacing: -0.9px;
+    }
+    .gradText{
+      background: linear-gradient(90deg, rgba(255,43,214,.95), rgba(0,229,255,.95), rgba(183,255,0,.85));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+      font-weight: 1000;
+    }
+    .sub{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+      max-width: 70ch;
+    }
+
+    .heroActions{
+      display:flex; flex-direction:column; gap:10px;
+      margin-top: 14px;
+    }
+    .heroActions .btn{ width:100%; }
+
+    /* “Scanner” panel - interactive */
+    .scanner{
+      border-radius: var(--r2);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+    }
+    .scannerTop{
+      padding: 14px 14px 0;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .scannerTop b{font-size: 13px;}
+    .meter{
+      font-size: 12px;
+      color: rgba(255,255,255,.72);
+      display:flex; align-items:center; gap:8px;
+    }
+    .bar{
+      width:110px; height:8px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+    .bar > div{
+      height:100%;
+      width: 62%;
+      background: linear-gradient(90deg, rgba(255,43,214,.9), rgba(0,229,255,.9), rgba(183,255,0,.8));
+      animation: fill 2.2s ease-in-out infinite;
+    }
+    @keyframes fill{
+      0%,100%{ width:58%; }
+      50%{ width:74%; }
+    }
+
+    .scannerBody{ padding: 12px 14px 14px; }
+
+    .inputRow{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top: 8px;
+    }
+    .fakeInput{
+      flex: 1 1 160px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      color: rgba(255,255,255,.82);
+      font-size: 13px;
+      position:relative;
+      overflow:hidden;
+    }
+    .fakeInput small{
+      display:block;
+      color: rgba(255,255,255,.55);
+      font-size: 11px;
+      margin-top: 4px;
+    }
+    .kbd{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 3px 7px;
+      border-radius: 10px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      font-size: 11px;
+      color: rgba(255,255,255,.76);
+      margin-left: 6px;
+    }
+
+    .scanBtn{
+      width:100%;
+      margin-top: 10px;
+    }
+
+    .scanLog{
+      margin-top: 12px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+    .logHead{
+      padding: 10px 12px;
+      display:flex; justify-content:space-between; align-items:center;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      color: rgba(255,255,255,.78);
+      font-size: 12px;
+    }
+    .logBody{
+      padding: 10px 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      color: rgba(255,255,255,.72);
+      line-height: 1.55;
+      height: 128px;
+      overflow:auto;
+    }
+    .ok{ color: rgba(183,255,0,.92); }
+    .warn{ color: rgba(255,176,32,.92); }
+    .info{ color: rgba(0,229,255,.90); }
+
+    /* Sections */
+    section{ padding: 10px 0 0; }
+    .title{
+      margin: 18px 0 10px;
+      font-size: 18px;
+      letter-spacing:-.2px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .card{
+      border-radius: var(--r2);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow2);
+      padding: 16px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(520px 170px at 10% 0%, rgba(0,229,255,.12), transparent 60%),
+        radial-gradient(520px 170px at 100% 20%, rgba(255,43,214,.10), transparent 60%);
+      pointer-events:none;
+    }
+    .card .row{position:relative; display:flex; gap:12px; align-items:flex-start;}
+    .ico{
+      width:42px;height:42px;border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      display:grid; place-items:center;
+      flex:0 0 auto;
+    }
+    .card h4{position:relative; margin:0; font-size:14px;}
+    .card p{position:relative; margin:6px 0 0; color: var(--muted); font-size:13px; line-height:1.6;}
+
+    /* Scarcity strip */
+    .strip{
+      margin-top: 14px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.24);
+      padding: 10px 12px;
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .strip b{font-size: 12px;}
+    .strip span{font-size: 12px; color: var(--muted);}
+    .pillTimer{
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: rgba(255,255,255,.78);
+      font-size: 12px;
+      white-space:nowrap;
+    }
+
+    /* Sticky bottom CTA */
+    .dock{
+      position: sticky;
+      bottom: 10px;
+      z-index: 60;
+      margin: 16px auto 24px;
+      width:min(var(--max), 92vw);
+      pointer-events:none;
+    }
+    .dock .inner{
+      pointer-events:auto;
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(7,7,17,.72);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+      padding: 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .dock .txt{
+      min-width:0;
+      padding-left: 4px;
+    }
+    .dock .txt .t1{font-weight:1000; font-size: 13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .dock .txt .t2{font-size: 12px; color: var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+
+    /* Reveal anim */
+    .reveal{opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease;}
+    .reveal.show{opacity:1; transform: translateY(0);}
+
+    /* Desktop */
+    @media (min-width: 980px){
+      .heroGrid{ grid-template-columns: 1.08fr .92fr; align-items:start; }
+      .heroActions{ flex-direction:row; }
+      .heroActions .btn{ width:auto; }
+      .cards{ grid-template-columns: repeat(3, 1fr); }
+      .scanBtn{ width: auto; }
+      .inputRow{ flex-wrap:nowrap; }
+    }
+
+    /* Tiny footer */
+    footer{
+      padding: 18px 0 26px;
+      color: rgba(255,255,255,.58);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* Toast */
+    .toast{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom: 94px;
+      z-index: 99;
+      width:min(560px, 92vw);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .toast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(-6px);
+    }
+    .toast .inner{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(7,7,17,.78);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow2);
+      padding: 12px 12px;
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+    }
+    .toast .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: var(--cyan);
+      box-shadow: 0 0 0 6px rgba(0,229,255,.12);
+      margin-top: 4px;
+      flex:0 0 auto;
+    }
+    .toast .msg b{display:block; font-size: 13px; margin-bottom:2px;}
+    .toast .msg span{display:block; color: var(--muted); font-size: 12px; line-height:1.45;}
+  </style>
+</head>
+
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- Particles -->
+  <div class="particle" style="left:10%; top:18%; animation-delay:-1s;"></div>
+  <div class="particle" style="left:84%; top:14%; width:12px;height:12px; animation-delay:-3s;"></div>
+  <div class="particle" style="left:62%; top:74%; width:8px;height:8px; animation-delay:-2s;"></div>
+  <div class="particle" style="left:22%; top:66%; width:9px;height:9px; animation-delay:-4s;"></div>
+
+  <header class="header">
+    <div class="container head-inner">
+      <div class="brand">
+        <div class="mark" aria-hidden="true"></div>
+        <div>LeadEngine</div>
+      </div>
+
+      <div class="status" title="Live status">
+        <span class="pulseDot" aria-hidden="true"></span>
+        <span id="statusLine">Live queue • Seller online • Click to review packages</span>
+      </div>
+
+      <a class="btn btn-neon" href="https://go.fiverr.com/visit/?bta=1123735&brand=fiverrmarketplace&landingPage=https%253A%252F%252Fwww.fiverr.com%252Fexcel_lead%252Ffind-email-lists-address-excel-data-entry-mining-scraping-virtual-assistant%253Fcontext_referrer%253Dsearch_gigs_with_sellers_who_speak%2526source%253Dtop-bar%2526ref_ctx_id%253D3464a22853494844a8a001c4cca85db3%2526pckg_id%253D1%2526pos%253D1%2526context_type%253Dauto%2526funnel%253D3464a22853494844a8a001c4cca85db3%2526seller_online%253Dtrue%2526fiverr_choice%253Dtrue%2526imp_id%253D9777aa6f-ed62-4570-befa-89af9a1cd5b4" target="_blank" rel="noopener noreferrer">
+        <span>Open Fiverr</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="container hero">
+    <div class="heroGrid">
+      <!-- Poster -->
+      <div class="poster reveal">
+        <div class="posterInner">
+          <div class="chips">
+            <div class="chip"><i></i> Email List Building</div>
+            <div class="chip"><i></i> Data Mining + Web Scraping</div>
+            <div class="chip"><i></i> Lead Gen + VA Support</div>
+          </div>
+
+          <h1>
+            Turn your niche into a <span class="gradText">high-quality lead list</span><br/>
+            in days, not weeks.
+          </h1>
+          <p class="sub">
+            Stop wasting hours in spreadsheets and directories. Send your filters, get a clean file back.
+            Perfect for agencies, founders, coaches, and growth teams that need targeted prospects fast.
+          </p>
+
+          <div class="heroActions">
+            <a class="btn btn-neon" href="https://go.fiverr.com/visit/?bta=1123735&brand=fiverrmarketplace&landingPage=https%253A%252F%252Fwww.fiverr.com%252Fexcel_lead%252Ffind-email-lists-address-excel-data-entry-mining-scraping-virtual-assistant%253Fcontext_referrer%253Dsearch_gigs_with_sellers_who_speak%2526source%253Dtop-bar%2526ref_ctx_id%253D3464a22853494844a8a001c4cca85db3%2526pckg_id%253D1%2526pos%253D1%2526context_type%253Dauto%2526funnel%253D3464a22853494844a8a001c4cca85db3%2526seller_online%253Dtrue%2526fiverr_choice%253Dtrue%2526imp_id%253D9777aa6f-ed62-4570-befa-89af9a1cd5b4" target="_blank" rel="noopener noreferrer" id="heroCta">
+              <span>Get Leads on Fiverr</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+
+            <button class="btn" id="jumpScan">Try the “Lead Scanner”</button>
+          </div>
+
+          <div class="strip">
+            <div>
+              <b>Capacity windows rotate</b>
+              <span>To keep quality high, slots can fill. Click through if you’re on a deadline.</span>
+            </div>
+            <div class="pillTimer" aria-label="Refresh countdown">
+              ⏳ Refresh in <span id="tMini">00:00:00</span>
+            </div>
+          </div>
+
+          <div style="margin-top:12px; color: rgba(255,255,255,.56); font-size:12px; line-height:1.55;">
+            <b>Compliance note:</b> This page uses “typical outcomes” language. Results depend on niche, offer, and outreach.
+          </div>
+        </div>
+      </div>
+
+      <!-- Scanner panel -->
+      <aside class="scanner reveal" id="scanner">
+        <div class="scannerTop">
+          <b>Lead Scanner</b>
+          <div class="meter">
+            Match strength
+            <span class="bar"><div></div></span>
+          </div>
+        </div>
+
+        <div class="scannerBody">
+          <div style="color: rgba(255,255,255,.74); font-size: 13px; line-height:1.55;">
+            Simulate the brief you’ll send the seller. The more specific your filters, the stronger the output.
+            <span class="kbd">Tap Scan</span>
+          </div>
+
+          <div class="inputRow">
+            <div class="fakeInput" id="nicheBox">
+              Niche: <b>Fitness coaches</b>
+              <small>Try: dentists, SaaS, e-commerce brands, agencies…</small>
+            </div>
+            <div class="fakeInput" id="geoBox">
+              Geo: <b>United States</b>
+              <small>Try: city, state, or region</small>
+            </div>
+          </div>
+
+          <div class="inputRow">
+            <div class="fakeInput" id="roleBox">
+              Roles: <b>Owner, Founder</b>
+              <small>Try: marketing manager, HR, operations…</small>
+            </div>
+            <div class="fakeInput" id="extraBox">
+              Extras: <b>Exclude agencies</b>
+              <small>Keywords, company size, platforms…</small>
+            </div>
+          </div>
+
+          <button class="btn btn-neon scanBtn" id="scanBtn">
+            <span>Scan & Generate Brief</span>
+            <span class="arrow" aria-hidden="true">⚡</span>
+          </button>
+
+          <div class="scanLog" aria-label="Scan log output">
+            <div class="logHead">
+              <span>Output</span>
+              <span id="logHint">Tap Scan to generate</span>
+            </div>
+            <div class="logBody" id="logBody">
+              <span class="info">[ready]</span> Build a clean lead list with clear filters.<br/>
+              <span class="warn">[tip]</span> Specific geo + roles + exclusions = better list quality.<br/>
+              <span class="ok">[next]</span> Tap “Scan & Generate Brief”.
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+            <button class="btn" id="copyBrief">Copy Brief</button>
+            <a class="btn btn-neon" href="https://go.fiverr.com/visit/?bta=1123735&brand=fiverrmarketplace&landingPage=https%253A%252F%252Fwww.fiverr.com%252Fexcel_lead%252Ffind-email-lists-address-excel-data-entry-mining-scraping-virtual-assistant%253Fcontext_referrer%253Dsearch_gigs_with_sellers_who_speak%2526source%253Dtop-bar%2526ref_ctx_id%253D3464a22853494844a8a001c4cca85db3%2526pckg_id%253D1%2526pos%253D1%2526context_type%253Dauto%2526funnel%253D3464a22853494844a8a001c4cca85db3%2526seller_online%253Dtrue%2526fiverr_choice%253Dtrue%2526imp_id%253D9777aa6f-ed62-4570-befa-89af9a1cd5b4" target="_blank" rel="noopener noreferrer">
+              <span>Open Fiverr & Send It</span>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+
+          <div style="margin-top:12px; color: rgba(255,255,255,.56); font-size:12px; line-height:1.55;">
+            You’ll finalize scope, delivery time, and packages on Fiverr.
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Value props -->
+    <section>
+      <div class="title reveal">Why this beats “random lists”</div>
+      <div class="cards">
+        <div class="card reveal">
+          <div class="row">
+            <div class="ico" aria-hidden="true">🎯</div>
+            <div>
+              <h4>ICP-first targeting</h4>
+              <p>Filters like niche, geo, roles, and exclusions so your outreach stays relevant.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="row">
+            <div class="ico" aria-hidden="true">🧩</div>
+            <div>
+              <h4>Clean delivery format</h4>
+              <p>Spreadsheet-ready output so you can import into CRM or run sequences immediately.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="row">
+            <div class="ico" aria-hidden="true">⚙️</div>
+            <div>
+              <h4>Scraping + data mining</h4>
+              <p>When applicable, the seller can compile leads from suitable online sources.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section style="padding-bottom:6px;">
+      <div class="poster reveal" style="margin-top:14px;">
+        <div class="posterInner">
+          <h2 style="margin:0 0 8px; font-size:22px; letter-spacing:-.3px;">
+            Want leads that actually match your offer?
+          </h2>
+          <p class="sub" style="margin:0 0 12px;">
+            Click through, check reviews & packages, then message the seller your brief (niche + geo + roles + exclusions).
+          </p>
+          <div class="heroActions">
+            <a class="btn btn-neon" href="https://go.fiverr.com/visit/?bta=1123735&brand=fiverrmarketplace&landingPage=https%253A%252F%252Fwww.fiverr.com%252Fexcel_lead%252Ffind-email-lists-address-excel-data-entry-mining-scraping-virtual-assistant%253Fcontext_referrer%253Dsearch_gigs_with_sellers_who_speak%2526source%253Dtop-bar%2526ref_ctx_id%253D3464a22853494844a8a001c4cca85db3%2526pckg_id%253D1%2526pos%253D1%2526context_type%253Dauto%2526funnel%253D3464a22853494844a8a001c4cca85db3%2526seller_online%253Dtrue%2526fiverr_choice%253Dtrue%2526imp_id%253D9777aa6f-ed62-4570-befa-89af9a1cd5b4" target="_blank" rel="noopener noreferrer">
+              <span>Open Fiverr Now</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+            <button class="btn" id="copyLink">Copy Affiliate Link</button>
+          </div>
+
+          <div style="margin-top:12px; color: rgba(255,255,255,.56); font-size:12px; line-height:1.55;">
+            Scarcity elements reflect typical queue/capacity dynamics — always confirm exact availability on Fiverr.
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        © <span id="year"></span> LeadEngine • This page promotes a Fiverr service via an affiliate link.
+        Fiverr is a third-party platform; orders, payments, and reviews happen on Fiverr.
+      </footer>
+    </section>
+  </main>
+
+  <!-- Sticky dock -->
+  <div class="dock">
+    <div class="inner">
+      <div class="txt">
+        <div class="t1" id="dockT1">Queue can fill fast</div>
+        <div class="t2" id="dockT2">Click to review packages & delivery time</div>
+      </div>
+      <a class="btn btn-neon" href="https://go.fiverr.com/visit/?bta=1123735&brand=fiverrmarketplace&landingPage=https%253A%252F%252Fwww.fiverr.com%252Fexcel_lead%252Ffind-email-lists-address-excel-data-entry-mining-scraping-virtual-assistant%253Fcontext_referrer%253Dsearch_gigs_with_sellers_who_speak%2526source%253Dtop-bar%2526ref_ctx_id%253D3464a22853494844a8a001c4cca85db3%2526pckg_id%253D1%2526pos%253D1%2526context_type%253Dauto%2526funnel%253D3464a22853494844a8a001c4cca85db3%2526seller_online%253Dtrue%2526fiverr_choice%253Dtrue%2526imp_id%253D9777aa6f-ed62-4570-befa-89af9a1cd5b4" target="_blank" rel="noopener noreferrer" aria-label="Open Fiverr">
+        <span>Get Leads</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+    <div class="inner">
+      <div class="dot" aria-hidden="true"></div>
+      <div class="msg">
+        <b id="toastTitle">Update</b>
+        <span id="toastBody">Someone is checking packages on Fiverr.</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const AFF_LINK = "https://go.fiverr.com/visit/?bta=1123735&brand=fiverrmarketplace&landingPage=https%253A%252F%252Fwww.fiverr.com%252Fexcel_lead%252Ffind-email-lists-address-excel-data-entry-mining-scraping-virtual-assistant%253Fcontext_referrer%253Dsearch_gigs_with_sellers_who_speak%2526source%253Dtop-bar%2526ref_ctx_id%253D3464a22853494844a8a001c4cca85db3%2526pckg_id%253D1%2526pos%253D1%2526context_type%253Dauto%2526funnel%253D3464a22853494844a8a001c4cca85db3%2526seller_online%253Dtrue%2526fiverr_choice%253Dtrue%2526imp_id%253D9777aa6f-ed62-4570-befa-89af9a1cd5b4";
+
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Reveal on scroll
+    const els = Array.from(document.querySelectorAll(".reveal"));
+    const io = new IntersectionObserver((entries)=> {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("show"); });
+    }, {threshold: 0.12});
+    els.forEach(el => io.observe(el));
+
+    // Smooth jump
+    document.getElementById("jumpScan")?.addEventListener("click", ()=> {
+      document.getElementById("scanner")?.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+
+    // Status line rotation
+    const statusLine = document.getElementById("statusLine");
+    const statusLines = [
+      "Live queue • Seller online • Click to review packages",
+      "Tip: Include niche + geo + roles + exclusions for best output",
+      "Fastest move: open Fiverr → message seller → confirm scope",
+      "Clean delivery • Spreadsheet-ready • Outreach faster"
+    ];
+    let sIdx = 0;
+    setInterval(()=> {
+      sIdx = (sIdx + 1) % statusLines.length;
+      statusLine.textContent = statusLines[sIdx];
+    }, 5200);
+
+    // Countdown: next 4-hour refresh window
+    const tMini = document.getElementById("tMini");
+    function nextWindow(){
+      const now = new Date();
+      const h = now.getHours();
+      const next = Math.floor(h / 4) * 4 + 4;
+      const d = new Date(now);
+      d.setMinutes(0,0,0);
+      if(next >= 24){ d.setDate(now.getDate()+1); d.setHours(0); }
+      else d.setHours(next);
+      return d;
+    }
+    let windowAt = nextWindow();
+    function pad(n){ return String(n).padStart(2,"0"); }
+    function tick(){
+      const now = new Date();
+      let diff = Math.max(0, windowAt - now);
+      if(diff === 0){ windowAt = nextWindow(); showToast("Capacity window", "Slots may open again. Click through if you need speed."); diff = windowAt - now; }
+      const total = Math.floor(diff/1000);
+      const h = Math.floor(total/3600);
+      const m = Math.floor((total%3600)/60);
+      const s = total%60;
+      tMini.textContent = `${pad(h)}:${pad(m)}:${pad(s)}`;
+    }
+    setInterval(tick, 1000); tick();
+
+    // Lead Scanner (simulated) — generates a brief you can copy
+    const scanBtn = document.getElementById("scanBtn");
+    const logBody = document.getElementById("logBody");
+    const logHint = document.getElementById("logHint");
+    const nicheBox = document.getElementById("nicheBox");
+    const geoBox = document.getElementById("geoBox");
+    const roleBox = document.getElementById("roleBox");
+    const extraBox = document.getElementById("extraBox");
+
+    const niches = ["Dentists", "SaaS founders", "E-commerce brands", "Real estate agents", "Marketing agencies", "Gyms & studios"];
+    const geos = ["United States", "United Kingdom", "Canada", "Australia", "Dubai", "France (Paris)"];
+    const roles = ["Owner, Founder", "Marketing Manager", "Operations Director", "Sales Manager", "HR Lead", "Business Development"];
+    const extras = ["Exclude agencies", "Include emails + website", "Company size 2–50", "Only active businesses", "Include LinkedIn URLs", "Keywords: \"software\", \"clinic\""];
+
+    let lastBrief = "";
+
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+    function addLine(cls, text){
+      const span = document.createElement("span");
+      span.className = cls;
+      span.textContent = text;
+      logBody.appendChild(document.createElement("br"));
+      logBody.appendChild(span);
+    }
+
+    scanBtn?.addEventListener("click", ()=>{
+      // Randomize “inputs” for a dynamic feel
+      const n = pick(niches), g = pick(geos), r = pick(roles), x = pick(extras);
+      nicheBox.innerHTML = `Niche: <b>${n}</b><small>Try: dentists, SaaS, e-commerce brands, agencies…</small>`;
+      geoBox.innerHTML   = `Geo: <b>${g}</b><small>Try: city, state, or region</small>`;
+      roleBox.innerHTML  = `Roles: <b>${r}</b><small>Try: marketing manager, HR, operations…</small>`;
+      extraBox.innerHTML = `Extras: <b>${x}</b><small>Keywords, company size, platforms…</small>`;
+
+      // Build a realistic brief (no guarantees)
+      lastBrief =
+`Hi! I need a targeted lead list.
+• Niche: ${n}
+• Location: ${g}
+• Roles/Titles: ${r}
+• Filters/Notes: ${x}
+Please deliver a clean spreadsheet with relevant columns (e.g., name, company, website, email if available, location, notes). Also confirm delivery time based on your current queue. Thank you!`;
+
+      logBody.innerHTML =
+        `<span class="info">[scan]</span> Mapping niche + geo + roles…<br/>
+         <span class="warn">[check]</span> Applying exclusions & keywords…<br/>
+         <span class="ok">[ok]</span> Brief generated. Copy it and send to the seller.`;
+      logHint.textContent = "Brief ready";
+
+      showToast("Brief generated", "Tap “Copy Brief” and paste it in Fiverr messages.");
+    });
+
+    // Copy brief
+    document.getElementById("copyBrief")?.addEventListener("click", async ()=>{
+      if(!lastBrief){
+        showToast("Nothing to copy", "Tap “Scan & Generate Brief” first.");
+        return;
+      }
+      try{
+        await navigator.clipboard.writeText(lastBrief);
+        showToast("Copied!", "Brief copied. Open Fiverr and send it to the seller.");
+      }catch(e){
+        showToast("Copy blocked", "Your browser blocked clipboard. You can manually select and copy from the output.");
+      }
+    });
+
+    // Copy affiliate link
+    document.getElementById("copyLink")?.addEventListener("click", async ()=>{
+      try{
+        await navigator.clipboard.writeText(AFF_LINK);
+        showToast("Copied!", "Affiliate link copied.");
+      }catch(e){
+        showToast("Copy blocked", "Your browser blocked clipboard. Copy from the address bar.");
+      }
+    });
+
+    // Dock text changes with scroll
+    const dockT1 = document.getElementById("dockT1");
+    const dockT2 = document.getElementById("dockT2");
+    window.addEventListener("scroll", ()=>{
+      const y = window.scrollY || 0;
+      if(y > 900){
+        dockT1.textContent = "Send your filters";
+        dockT2.textContent = "Open Fiverr → message seller → confirm scope";
+      }else{
+        dockT1.textContent = "Queue can fill fast";
+        dockT2.textContent = "Click to review packages & delivery time";
+      }
+    }, {passive:true});
+
+    // Toast (ethical activity tips — not fake purchases)
+    const toast = document.getElementById("toast");
+    const toastTitle = document.getElementById("toastTitle");
+    const toastBody = document.getElementById("toastBody");
+
+    const toastMsgs = [
+      ["Pro tip", "Specific roles + geo filters usually improve list relevance."],
+      ["Activity", "Someone is reviewing packages & delivery times on Fiverr."],
+      ["Reminder", "If you're on a deadline, message the seller before ordering."],
+      ["Pro move", "Ask for preferred columns (email, website, LinkedIn, notes)."],
+      ["Heads up", "Queue changes daily — confirm availability on the Fiverr page."]
+    ];
+
+    function showToast(t,b){
+      toastTitle.textContent = t;
+      toastBody.textContent = b;
+      toast.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(()=> toast.classList.remove("show"), 3200);
+    }
+    window.showToast = showToast;
+
+    function randomToast(){
+      const [t,b] = toastMsgs[Math.floor(Math.random()*toastMsgs.length)];
+      showToast(t,b);
+      const next = 8000 + Math.floor(Math.random()*9000);
+      setTimeout(randomToast, next);
+    }
+    setTimeout(randomToast, 5200);
+  </script>
+</body>
+</html>
