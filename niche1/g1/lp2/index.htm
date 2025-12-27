@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LeadEngine — Done-For-You Lead Lists (Fiverr)</title>
+  <meta name="description" content="Get targeted lead lists, email list building, web scraping, data mining, and VA support. Clean, fast, conversion-focused landing page." />
+  <meta name="theme-color" content="#0b1220" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="LeadEngine — Done-For-You Lead Lists" />
+  <meta property="og:description" content="Targeted leads & email list building delivered fast. Click to view the Fiverr service." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --bg:#070b14;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.08);
+      --stroke:rgba(255,255,255,.10);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --soft:rgba(255,255,255,.12);
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --shadow2: 0 10px 30px rgba(0,0,0,.45);
+      --r:18px;
+      --r2:26px;
+      --max:1120px;
+      --accent1:#7c3aed; /* purple */
+      --accent2:#06b6d4; /* cyan */
+      --good:#22c55e;
+      --warn:#f59e0b;
+      --bad:#ef4444;
+      --ctaShadow: 0 20px 50px rgba(124,58,237,.28), 0 10px 26px rgba(6,182,212,.18);
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background: radial-gradient(1200px 700px at 10% 10%, rgba(124,58,237,.24), transparent 55%),
+                  radial-gradient(900px 600px at 90% 20%, rgba(6,182,212,.18), transparent 50%),
+                  radial-gradient(800px 500px at 50% 95%, rgba(34,197,94,.10), transparent 55%),
+                  linear-gradient(180deg, #060811, #070b14 40%, #070b14);
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .container{width:min(var(--max), 92vw); margin:0 auto;}
+
+    /* Ambient animated blobs */
+    .blob{
+      position:absolute;
+      filter: blur(30px);
+      opacity:.55;
+      transform: translate3d(0,0,0);
+      pointer-events:none;
+      mix-blend-mode:screen;
+      border-radius:999px;
+      animation: float 10s ease-in-out infinite;
+    }
+    .b1{width:340px;height:340px; left:-80px; top:120px; background:rgba(124,58,237,.40); animation-duration: 14s;}
+    .b2{width:280px;height:280px; right:-70px; top:220px; background:rgba(6,182,212,.35); animation-duration: 12s; animation-delay:-2s;}
+    .b3{width:360px;height:360px; left:40%; bottom:-170px; background:rgba(34,197,94,.18); animation-duration: 16s; animation-delay:-4s;}
+    @keyframes float{
+      0%,100%{ transform: translate(0,0) scale(1); }
+      50%{ transform: translate(18px,-22px) scale(1.04); }
+    }
+
+    /* Header */
+    .header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(7,11,20,.82), rgba(7,11,20,.45));
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .head-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:.2px;
+    }
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background:
+        radial-gradient(16px 16px at 25% 30%, rgba(255,255,255,.9), rgba(255,255,255,0) 55%),
+        linear-gradient(135deg, rgba(124,58,237,.95), rgba(6,182,212,.92));
+      box-shadow: 0 12px 26px rgba(124,58,237,.22);
+      border:1px solid rgba(255,255,255,.14);
+    }
+    .brand span{font-size:15px}
+    .pill{
+      display:flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:999px;
+      background:rgba(255,255,255,.05);
+      font-size:12px;
+      color:var(--muted);
+      max-width: 58vw;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    }
+    .dot{
+      width:7px;height:7px;border-radius:50%;
+      background:var(--good);
+      box-shadow: 0 0 0 4px rgba(34,197,94,.15);
+    }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      font-weight:700;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      will-change: transform;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.20); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+
+    .btn-cta{
+      background: linear-gradient(135deg, rgba(124,58,237,.95), rgba(6,182,212,.92));
+      border-color: rgba(255,255,255,.22);
+      box-shadow: var(--ctaShadow);
+      padding: 12px 16px;
+    }
+    .btn-cta:hover{ filter: brightness(1.02); transform: translateY(-1px); }
+    .btn-cta .spark{
+      width:18px;height:18px; display:inline-block;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.95), rgba(255,255,255,0) 60%);
+      border-radius: 999px;
+      position:relative;
+    }
+    .btn-cta .spark:after{
+      content:"";
+      position:absolute; inset:-10px;
+      background: radial-gradient(circle, rgba(255,255,255,.32), rgba(255,255,255,0) 60%);
+      filter: blur(1px);
+      opacity:.7;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%,100%{ transform: scale(.9); opacity:.45;}
+      50%{ transform: scale(1.15); opacity:.85;}
+    }
+
+    /* Hero */
+    .hero{ padding: 18px 0 8px; position:relative; }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      padding: 18px 0 28px;
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--r2);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(600px 180px at 20% 0%, rgba(124,58,237,.18), transparent 60%),
+                  radial-gradient(420px 180px at 90% 20%, rgba(6,182,212,.14), transparent 60%);
+      pointer-events:none;
+    }
+    .card-inner{ position:relative; padding: 18px; }
+
+    .kicker{
+      display:flex; flex-wrap:wrap; gap:10px;
+      align-items:center;
+      margin-bottom: 12px;
+    }
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .tag strong{color:var(--text); font-weight:800}
+    .tag .mini{
+      width:8px;height:8px;border-radius:50%;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(124,58,237,.12);
+    }
+
+    h1{
+      font-size: clamp(30px, 6.4vw, 54px);
+      line-height: 1.05;
+      margin: 8px 0 10px;
+      letter-spacing: -0.6px;
+    }
+    .sub{
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin: 0 0 14px;
+      max-width: 64ch;
+    }
+    .highlight{
+      background: linear-gradient(90deg, rgba(124,58,237,.95), rgba(6,182,212,.92));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+      font-weight: 900;
+    }
+
+    .hero-actions{
+      display:flex; flex-direction:column; gap:10px;
+      margin-top: 14px;
+    }
+    .hero-actions .btn{ width:100%; }
+
+    .fineprint{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.58);
+      line-height: 1.45;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .stat{
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      position:relative;
+      overflow:hidden;
+    }
+    .stat:after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(220px 120px at 20% 20%, rgba(124,58,237,.12), transparent 60%);
+      pointer-events:none;
+    }
+    .stat .num{font-size: 18px; font-weight:900; letter-spacing:-.3px;}
+    .stat .lbl{font-size: 12px; color: var(--muted); margin-top: 4px;}
+
+    /* Right side panel */
+    .side{
+      padding: 18px;
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow2);
+    }
+
+    .scarcity{
+      display:flex; align-items:flex-start; gap:12px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(245,158,11,.22);
+      background: linear-gradient(180deg, rgba(245,158,11,.10), rgba(255,255,255,.03));
+      margin-bottom: 14px;
+      position:relative;
+      overflow:hidden;
+    }
+    .scarcity:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(280px 120px at 20% 0%, rgba(245,158,11,.18), transparent 60%);
+      pointer-events:none;
+    }
+    .scarcity .ic{
+      width:34px;height:34px;border-radius:14px;
+      display:grid; place-items:center;
+      background: rgba(245,158,11,.14);
+      border: 1px solid rgba(245,158,11,.22);
+      flex:0 0 auto;
+      position:relative;
+    }
+    .scarcity h3{margin:0; font-size: 14px; letter-spacing:.1px;}
+    .scarcity p{margin:6px 0 0; font-size: 12px; color: rgba(255,255,255,.70); line-height:1.45;}
+
+    .countdown{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:10px;
+      margin-top: 10px;
+    }
+    .timebox{
+      text-align:center;
+      padding: 10px 8px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .timebox .t{font-size: 18px; font-weight: 900; letter-spacing:-.3px;}
+    .timebox .u{font-size: 11px; color: var(--muted); margin-top: 2px;}
+
+    .list{
+      margin: 12px 0 14px;
+      padding: 0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+    .li{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .check{
+      width:22px;height:22px;border-radius:8px;
+      display:grid;place-items:center;
+      background: rgba(34,197,94,.14);
+      border: 1px solid rgba(34,197,94,.22);
+      flex:0 0 auto;
+      margin-top: 1px;
+    }
+    .li b{display:block; font-size: 13px; margin-bottom:2px;}
+    .li span{display:block; color:var(--muted); font-size:12px; line-height:1.4;}
+
+    .trustrow{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top: 14px;
+    }
+    .trust{
+      flex: 1 1 120px;
+      padding: 10px 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      font-size: 12px;
+      color: rgba(255,255,255,.75);
+      display:flex; align-items:center; gap:10px;
+    }
+    .trust .badge{
+      width:26px;height:26px;border-radius:12px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      display:grid; place-items:center;
+    }
+
+    /* Sections */
+    section{ padding: 12px 0 0; }
+    .section-title{
+      font-size: 18px;
+      letter-spacing:-.2px;
+      margin: 18px 0 10px;
+    }
+    .muted{ color: var(--muted); }
+
+    .features{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .feat{
+      padding: 16px;
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 10px 26px rgba(0,0,0,.28);
+      position:relative;
+      overflow:hidden;
+    }
+    .feat:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(420px 160px at 0% 0%, rgba(6,182,212,.12), transparent 55%),
+                  radial-gradient(420px 160px at 100% 30%, rgba(124,58,237,.10), transparent 55%);
+      pointer-events:none;
+    }
+    .feat .top{
+      position:relative;
+      display:flex; align-items:center; gap:12px;
+      margin-bottom: 8px;
+    }
+    .feat .icon{
+      width:40px;height:40px;border-radius:16px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      display:grid; place-items:center;
+    }
+    .feat h4{margin:0; font-size: 14px;}
+    .feat p{position:relative; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55;}
+
+    .how{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .step{
+      padding: 16px;
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      position:relative;
+      overflow:hidden;
+    }
+    .step:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(440px 170px at 15% 0%, rgba(34,197,94,.10), transparent 60%);
+      pointer-events:none;
+    }
+    .step .n{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:34px;height:34px;border-radius:14px;
+      background: rgba(124,58,237,.14);
+      border: 1px solid rgba(124,58,237,.22);
+      font-weight: 900;
+      margin-bottom: 10px;
+      position:relative;
+    }
+    .step h4{margin:0 0 6px; font-size: 14px; position:relative;}
+    .step p{margin:0; color: var(--muted); font-size: 13px; line-height: 1.55; position:relative;}
+
+    .faq{
+      display:grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    details{
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+    }
+    summary{
+      cursor:pointer;
+      padding: 14px 16px;
+      font-weight: 800;
+      font-size: 13px;
+      list-style:none;
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 12px;
+    }
+    summary::-webkit-details-marker{display:none}
+    summary .chev{
+      width:22px;height:22px;border-radius:10px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      display:grid; place-items:center;
+      transition: transform .2s ease;
+      flex: 0 0 auto;
+    }
+    details[open] summary .chev{ transform: rotate(180deg); }
+    details .content{
+      padding: 0 16px 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* Sticky bottom CTA (mobile) */
+    .bottom-cta{
+      position: sticky;
+      bottom: 10px;
+      z-index: 60;
+      margin: 16px auto 24px;
+      width:min(var(--max), 92vw);
+      background: linear-gradient(180deg, rgba(7,11,20,.2), rgba(7,11,20,0));
+      pointer-events:none;
+    }
+    .bottom-cta .bar{
+      pointer-events:auto;
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(7,11,20,.72);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      padding: 10px;
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .bottom-cta .left{
+      display:flex; flex-direction:column;
+      gap: 2px;
+      padding-left: 4px;
+      min-width: 0;
+    }
+    .bottom-cta .left .t1{font-weight:900; font-size: 13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .bottom-cta .left .t2{font-size: 12px; color: var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .bottom-cta .bar .btn{flex:0 0 auto}
+
+    /* Reveal animations */
+    .reveal{opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease;}
+    .reveal.show{opacity:1; transform: translateY(0);}
+
+    /* Responsive */
+    @media (min-width: 940px){
+      .grid{ grid-template-columns: 1.15fr .85fr; align-items:start; }
+      .hero-actions{ flex-direction:row; }
+      .hero-actions .btn{ width:auto; }
+      .features{ grid-template-columns: repeat(3, 1fr); }
+      .how{ grid-template-columns: repeat(3, 1fr); }
+      .stats{ grid-template-columns: repeat(4, 1fr); }
+    }
+
+    /* Small helpers */
+    .sep{height:1px; background: rgba(255,255,255,.08); margin: 14px 0;}
+    .tiny{
+      font-size:12px;
+      color: rgba(255,255,255,.58);
+      line-height: 1.55;
+    }
+
+    /* Toast */
+    .toast{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom: 94px;
+      z-index: 99;
+      width:min(520px, 92vw);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .toast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(-6px);
+    }
+    .toast .inner{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(7,11,20,.78);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow2);
+      padding: 12px 12px;
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+    }
+    .toast .ping{
+      width:10px;height:10px;border-radius:50%;
+      background: var(--good);
+      box-shadow: 0 0 0 6px rgba(34,197,94,.12);
+      margin-top: 4px;
+      flex:0 0 auto;
+    }
+    .toast .msg b{display:block; font-size: 13px; margin-bottom:2px;}
+    .toast .msg span{display:block; color: var(--muted); font-size: 12px; line-height:1.45;}
+  </style>
+</head>
+
+<body>
+  <!-- Animated background blobs -->
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <!-- Sticky Header -->
+  <header class="header">
+    <div class="container head-inner">
+      <div class="brand" aria-label="LeadEngine">
+        <div class="logo" aria-hidden="true"></div>
+        <span>LeadEngine</span>
+      </div>
+
+      <div class="pill" title="Live status">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="liveLine">Seller online • Fast turnaround • Limited daily capacity</span>
+      </div>
+
+      <a class="btn btn-cta" id="topCta" href="https://go.fiverr.com/visit/?bta=1123735&brand=fiverrmarketplace&landingPage=https%253A%252F%252Fwww.fiverr.com%252Fexcel_lead%252Ffind-email-lists-address-excel-data-entry-mining-scraping-virtual-assistant%253Fcontext_referrer%253Dsearch_gigs_with_sellers_who_speak%2526source%253Dtop-bar%2526ref_ctx_id%253D3464a22853494844a8a001c4cca85db3%2526pckg_id%253D1%2526pos%253D1%2526context_type%253Dauto%2526funnel%253D3464a22853494844a8a001c4cca85db3%2526seller_online%253Dtrue%2526fiverr_choice%253Dtrue%2526imp_id%253D9777aa6f-ed62-4570-befa-89af9a1cd5b4" target="_blank" rel="noopener noreferrer">
+        <span class="spark" aria-hidden="true"></span>
+        Get Leads Now
+      </a>
+    </div>
+  </header>
+
+  <main class="container hero">
+    <div class="grid">
+      <!-- Left: Hero copy -->
+      <div class="card reveal">
+        <div class="card-inner">
+          <div class="kicker">
+            <div class="tag"><span class="mini" aria-hidden="true"></span> Premium Done-For-You Service</div>
+            <div class="tag"><strong>Targeted Leads</strong> + Email List Building</div>
+            <div class="tag">Data Mining • Web Scraping • VA Support</div>
+          </div>
+
+          <h1>
+            Get <span class="highlight">clean, targeted lead lists</span><br/>
+            without wasting days searching.
+          </h1>
+          <p class="sub">
+            Tell them your niche + location + filters. They deliver a verified, organized list you can use for outreach,
+            ads, partnerships, or sales. Perfect for agencies, founders, coaches, e-commerce, and SaaS.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-cta" href="https://go.fiverr.com/visit/?bta=1123735&brand=fiverrmarketplace&landingPage=https%253A%252F%252Fwww.fiverr.com%252Fexcel_lead%252Ffind-email-lists-address-excel-data-entry-mining-scraping-virtual-assistant%253Fcontext_referrer%253Dsearch_gigs_with_sellers_who_speak%2526source%253Dtop-bar%2526ref_ctx_id%253D3464a22853494844a8a001c4cca85db3%2526pckg_id%253D1%2526pos%253D1%2526context_type%253Dauto%2526funnel%253D3464a22853494844a8a001c4cca85db3%2526seller_online%253Dtrue%2526fiverr_choice%253Dtrue%2526imp_id%253D9777aa6f-ed62-4570-befa-89af9a1cd5b4" target="_blank" rel="noopener noreferrer">
+              <span class="spark" aria-hidden="true"></span>
+              View Fiverr Service
+            </a>
+            <button class="btn" id="seeHow">See How It Works</button>
+          </div>
+
+          <div class="fineprint">
+            <b>Note:</b> No “guaranteed results” claims — outcomes vary by niche, offer, and outreach.
+            This page is designed to drive qualified clicks to the Fiverr service where you can review packages & reviews.
+          </div>
+
+          <div class="stats">
+            <div class="stat reveal">
+              <div class="num" id="stat1">2–5</div>
+              <div class="lbl">Typical iterations to refine filters</div>
+            </div>
+            <div class="stat reveal">
+              <div class="num" id="stat2">Fast</div>
+              <div class="lbl">Turnaround depends on package scope</div>
+            </div>
+            <div class="stat reveal">
+              <div class="num" id="stat3">Clean</div>
+              <div class="lbl">Spreadsheet-ready delivery</div>
+            </div>
+            <div class="stat reveal">
+              <div class="num" id="stat4">Focused</div>
+              <div class="lbl">Niche + geo + role targeting</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Scarcity + benefits -->
+      <aside class="side reveal">
+        <div class="scarcity">
+          <div class="ic" aria-hidden="true">⏳</div>
+          <div>
+            <h3>Limited daily capacity (to keep quality high)</h3>
+            <p>
+              When the queue fills, delivery time can increase. If you need leads soon, click through and secure a slot.
+            </p>
+            <div class="countdown" aria-label="Capacity refresh countdown">
+              <div class="timebox"><div class="t" id="dd">00</div><div class="u">Days</div></div>
+              <div class="timebox"><div class="t" id="hh">00</div><div class="u">Hours</div></div>
+              <div class="timebox"><div class="t" id="mm">00</div><div class="u">Min</div></div>
+              <div class="timebox"><div class="t" id="ss">00</div><div class="u">Sec</div></div>
+            </div>
+          </div>
+        </div>
+
+        <ul class="list">
+          <li class="li">
+            <div class="check" aria-hidden="true">✓</div>
+            <div>
+              <b>Tell them exactly what you want</b>
+              <span>Niche, location, role/job titles, company size, keywords, platform, etc.</span>
+            </div>
+          </li>
+          <li class="li">
+            <div class="check" aria-hidden="true">✓</div>
+            <div>
+              <b>They build & organize the list</b>
+              <span>Delivered as a clean file (Excel/Sheets-ready). You can review and request tweaks.</span>
+            </div>
+          </li>
+          <li class="li">
+            <div class="check" aria-hidden="true">✓</div>
+            <div>
+              <b>Launch outreach faster</b>
+              <span>Use it for cold email, LinkedIn, partnerships, ad targeting research, or CRM import.</span>
+            </div>
+          </li>
+        </ul>
+
+        <a class="btn btn-cta" href="https://go.fiverr.com/visit/?bta=1123735&brand=fiverrmarketplace&landingPage=https%253A%252F%252Fwww.fiverr.com%252Fexcel_lead%252Ffind-email-lists-address-excel-data-entry-mining-scraping-virtual-assistant%253Fcontext_referrer%253Dsearch_gigs_with_sellers_who_speak%2526source%253Dtop-bar%2526ref_ctx_id%253D3464a22853494844a8a001c4cca85db3%2526pckg_id%253D1%2526pos%253D1%2526context_type%253Dauto%2526funnel%253D3464a22853494844a8a001c4cca85db3%2526seller_online%253Dtrue%2526fiverr_choice%253Dtrue%2526imp_id%253D9777aa6f-ed62-4570-befa-89af9a1cd5b4" target="_blank" rel="noopener noreferrer" id="mainCta">
+          <span class="spark" aria-hidden="true"></span>
+          Get Started on Fiverr
+        </a>
+
+        <div class="trustrow">
+          <div class="trust"><span class="badge" aria-hidden="true">🔒</span><span>Secure checkout on Fiverr</span></div>
+          <div class="trust"><span class="badge" aria-hidden="true">⭐</span><span>Reviews visible on listing</span></div>
+          <div class="trust"><span class="badge" aria-hidden="true">⚡</span><span>Message seller before ordering</span></div>
+        </div>
+
+        <div class="sep"></div>
+        <div class="tiny">
+          <b>Tip:</b> Click through, review packages, then message the seller with your niche + filters to confirm scope.
+        </div>
+      </aside>
+    </div>
+
+    <!-- Features -->
+    <section id="features">
+      <div class="section-title reveal">What you get</div>
+      <p class="muted reveal" style="margin:0 0 12px; line-height:1.6;">
+        A single place to outsource lead research, scraping, and list building — delivered clean and ready to use.
+      </p>
+
+      <div class="features">
+        <div class="feat reveal">
+          <div class="top">
+            <div class="icon" aria-hidden="true">🎯</div>
+            <div>
+              <h4>Highly targeted prospects</h4>
+              <div class="tiny">Filter by niche, geo, role, keywords, platform.</div>
+            </div>
+          </div>
+          <p>Stop buying random lists. Get leads that match your ICP so your outreach stays relevant.</p>
+        </div>
+
+        <div class="feat reveal">
+          <div class="top">
+            <div class="icon" aria-hidden="true">🧾</div>
+            <div>
+              <h4>Spreadsheet-ready delivery</h4>
+              <div class="tiny">Organized columns + clear formatting.</div>
+            </div>
+          </div>
+          <p>Import into your CRM, run sequences, or hand it to your sales team immediately.</p>
+        </div>
+
+        <div class="feat reveal">
+          <div class="top">
+            <div class="icon" aria-hidden="true">🧠</div>
+            <div>
+              <h4>Data mining + web scraping</h4>
+              <div class="tiny">When applicable for your sources.</div>
+            </div>
+          </div>
+          <p>Useful for directories, marketplaces, local business sites, niche platforms, and more.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how">
+      <div class="section-title reveal">How it works</div>
+      <div class="how">
+        <div class="step reveal">
+          <div class="n">1</div>
+          <h4>Open the Fiverr service</h4>
+          <p>Review packages, delivery time, and reviews so you know exactly what you’re getting.</p>
+        </div>
+        <div class="step reveal">
+          <div class="n">2</div>
+          <h4>Send your targeting filters</h4>
+          <p>Provide niche + location + roles + keywords. The more specific, the better the output.</p>
+        </div>
+        <div class="step reveal">
+          <div class="n">3</div>
+          <h4>Receive your list & refine</h4>
+          <p>Get a clean file, then request any adjustments to match your ideal customer profile.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="section-title reveal">FAQ</div>
+      <div class="faq">
+        <details class="reveal">
+          <summary>Is this a guaranteed results service? <span class="chev" aria-hidden="true">⌄</span></summary>
+          <div class="content">
+            No. Like any lead gen work, outcomes depend on your niche, offer, messaging, and follow-up. The service focuses on delivering quality targeted data so your outreach can perform better.
+          </div>
+        </details>
+
+        <details class="reveal">
+          <summary>What should I send the seller to get the best list? <span class="chev" aria-hidden="true">⌄</span></summary>
+          <div class="content">
+            Include: niche, country/city, roles/job titles, company size, keywords, preferred sources/platforms, and any exclusions (e.g., “no agencies”, “no freelancers”, etc.).
+          </div>
+        </details>
+
+        <details class="reveal">
+          <summary>How fast is delivery? <span class="chev" aria-hidden="true">⌄</span></summary>
+          <div class="content">
+            Delivery depends on the package and current queue. If you’re on a deadline, click through and message the seller to confirm timing before ordering.
+          </div>
+        </details>
+
+        <details class="reveal">
+          <summary>Can I use this for any industry? <span class="chev" aria-hidden="true">⌄</span></summary>
+          <div class="content">
+            Generally yes. It’s especially useful for B2B, local services, agencies, e-commerce suppliers, SaaS, coaching, and any business that needs prospecting data.
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <div class="sep"></div>
+
+    <!-- Final CTA -->
+    <section style="padding-bottom: 6px;">
+      <div class="card reveal">
+        <div class="card-inner">
+          <div class="kicker">
+            <div class="tag"><span class="mini" aria-hidden="true"></span> Ready to move fast?</div>
+            <div class="tag">Click → Review → Message seller → Order</div>
+          </div>
+          <h2 style="margin:0 0 8px; font-size: 22px; letter-spacing:-.3px;">Get your lead list built today.</h2>
+          <p class="muted" style="margin:0 0 14px; line-height:1.6;">
+            If you need targeted prospects without doing the manual research, this is the simplest next step.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-cta" href="https://go.fiverr.com/visit/?bta=1123735&brand=fiverrmarketplace&landingPage=https%253A%252F%252Fwww.fiverr.com%252Fexcel_lead%252Ffind-email-lists-address-excel-data-entry-mining-scraping-virtual-assistant%253Fcontext_referrer%253Dsearch_gigs_with_sellers_who_speak%2526source%253Dtop-bar%2526ref_ctx_id%253D3464a22853494844a8a001c4cca85db3%2526pckg_id%253D1%2526pos%253D1%2526context_type%253Dauto%2526funnel%253D3464a22853494844a8a001c4cca85db3%2526seller_online%253Dtrue%2526fiverr_choice%253Dtrue%2526imp_id%253D9777aa6f-ed62-4570-befa-89af9a1cd5b4" target="_blank" rel="noopener noreferrer">
+              <span class="spark" aria-hidden="true"></span>
+              Open Fiverr & Secure a Slot
+            </a>
+            <button class="btn" id="copyLink">Copy Affiliate Link</button>
+          </div>
+          <div class="fineprint">
+            Scarcity elements on this page reflect general capacity/queue dynamics. Always confirm specifics on Fiverr.
+          </div>
+        </div>
+      </div>
+
+      <footer style="padding: 18px 0 26px;">
+        <div class="tiny">
+          © <span id="year"></span> LeadEngine • This page promotes a Fiverr service via an affiliate link. Fiverr is a third-party platform; all orders, payments, and reviews occur on Fiverr.
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <!-- Sticky bottom CTA (mobile) -->
+  <div class="bottom-cta">
+    <div class="bar">
+      <div class="left">
+        <div class="t1" id="barTitle">Limited daily slots</div>
+        <div class="t2" id="barSub">Click to view the Fiverr service</div>
+      </div>
+      <a class="btn btn-cta" href="https://go.fiverr.com/visit/?bta=1123735&brand=fiverrmarketplace&landingPage=https%253A%252F%252Fwww.fiverr.com%252Fexcel_lead%252Ffind-email-lists-address-excel-data-entry-mining-scraping-virtual-assistant%253Fcontext_referrer%253Dsearch_gigs_with_sellers_who_speak%2526source%253Dtop-bar%2526ref_ctx_id%253D3464a22853494844a8a001c4cca85db3%2526pckg_id%253D1%2526pos%253D1%2526context_type%253Dauto%2526funnel%253D3464a22853494844a8a001c4cca85db3%2526seller_online%253Dtrue%2526fiverr_choice%253Dtrue%2526imp_id%253D9777aa6f-ed62-4570-befa-89af9a1cd5b4" target="_blank" rel="noopener noreferrer" aria-label="Get leads now">
+        <span class="spark" aria-hidden="true"></span>
+        Get Leads
+      </a>
+    </div>
+  </div>
+
+  <!-- Social proof toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+    <div class="inner">
+      <div class="ping" aria-hidden="true"></div>
+      <div class="msg">
+        <b id="toastTitle">Update</b>
+        <span id="toastBody">Someone just clicked through to check packages.</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Settings ---
+    const AFF_LINK = "https://go.fiverr.com/visit/?bta=1123735&brand=fiverrmarketplace&landingPage=https%253A%252F%252Fwww.fiverr.com%252Fexcel_lead%252Ffind-email-lists-address-excel-data-entry-mining-scraping-virtual-assistant%253Fcontext_referrer%253Dsearch_gigs_with_sellers_who_speak%2526source%253Dtop-bar%2526ref_ctx_id%253D3464a22853494844a8a001c4cca85db3%2526pckg_id%253D1%2526pos%253D1%2526context_type%253Dauto%2526funnel%253D3464a22853494844a8a001c4cca85db3%2526seller_online%253Dtrue%2526fiverr_choice%253Dtrue%2526imp_id%253D9777aa6f-ed62-4570-befa-89af9a1cd5b4";
+
+    // --- Smooth scroll ---
+    document.getElementById("seeHow")?.addEventListener("click", () => {
+      document.getElementById("how")?.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+
+    // --- Copy link ---
+    document.getElementById("copyLink")?.addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(AFF_LINK);
+        showToast("Copied!", "Affiliate link copied. Paste it anywhere you share.");
+      }catch(e){
+        showToast("Copy failed", "Your browser blocked clipboard. You can manually copy from the address bar.");
+      }
+    });
+
+    // --- Footer year ---
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // --- Countdown (Scarcity) ---
+    // Creates a rolling countdown to the next "capacity refresh" (next 6-hour block)
+    function nextRefresh(){
+      const now = new Date();
+      const h = now.getHours();
+      const nextBlock = Math.floor(h / 6) * 6 + 6; // 0-6-12-18-24
+      const refresh = new Date(now);
+      refresh.setMinutes(0,0,0);
+      if(nextBlock >= 24){
+        refresh.setDate(now.getDate() + 1);
+        refresh.setHours(0);
+      }else{
+        refresh.setHours(nextBlock);
+      }
+      return refresh;
+    }
+
+    let refreshAt = nextRefresh();
+    const dd = document.getElementById("dd");
+    const hh = document.getElementById("hh");
+    const mm = document.getElementById("mm");
+    const ss = document.getElementById("ss");
+
+    function pad(n){ return String(n).padStart(2,"0"); }
+
+    function tick(){
+      const now = new Date();
+      let diff = Math.max(0, refreshAt - now);
+      if(diff === 0){
+        refreshAt = nextRefresh();
+        showToast("Capacity refresh", "Slots may open up again. Click through if you need delivery soon.");
+        diff = refreshAt - now;
+      }
+      const total = Math.floor(diff / 1000);
+      const days = Math.floor(total / 86400);
+      const hours = Math.floor((total % 86400) / 3600);
+      const mins = Math.floor((total % 3600) / 60);
+      const secs = total % 60;
+
+      dd.textContent = pad(days);
+      hh.textContent = pad(hours);
+      mm.textContent = pad(mins);
+      ss.textContent = pad(secs);
+    }
+    setInterval(tick, 1000);
+    tick();
+
+    // --- Reveal on scroll ---
+    const els = Array.from(document.querySelectorAll(".reveal"));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if(e.isIntersecting) e.target.classList.add("show");
+      });
+    }, {threshold: 0.12});
+    els.forEach(el => io.observe(el));
+
+    // --- Micro social-proof style toasts (ethical: framed as activity, not fake purchases) ---
+    const toast = document.getElementById("toast");
+    const toastTitle = document.getElementById("toastTitle");
+    const toastBody  = document.getElementById("toastBody");
+
+    const toastMsgs = [
+      ["Heads up", "People often message the seller first to confirm niche + filters."],
+      ["Quick tip", "Specific filters = better leads (role, geo, keywords, exclusions)."],
+      ["Activity", "Someone is reviewing packages & delivery times on Fiverr."],
+      ["Reminder", "If delivery is urgent, secure a slot before the queue fills."],
+      ["Pro move", "Ask for a sample row format before ordering large volumes."]
+    ];
+
+    function showToast(title, body){
+      toastTitle.textContent = title;
+      toastBody.textContent = body;
+      toast.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(()=> toast.classList.remove("show"), 3200);
+    }
+
+    function randomToast(){
+      const [t,b] = toastMsgs[Math.floor(Math.random()*toastMsgs.length)];
+      showToast(t,b);
+      const next = 8000 + Math.floor(Math.random()*9000);
+      setTimeout(randomToast, next);
+    }
+    setTimeout(randomToast, 5200);
+
+    // --- Dynamic header line rotation ---
+    const liveLine = document.getElementById("liveLine");
+    const lines = [
+      "Seller online • Fast turnaround • Limited daily capacity",
+      "Tip: Send niche + geo + roles + keywords for best results",
+      "Queue changes daily • Confirm delivery time on Fiverr",
+      "Clean lists • Spreadsheet-ready • Outreach faster"
+    ];
+    let idx = 0;
+    setInterval(() => {
+      idx = (idx + 1) % lines.length;
+      liveLine.textContent = lines[idx];
+    }, 5200);
+
+    // --- Smart bar text changes based on scroll ---
+    const barTitle = document.getElementById("barTitle");
+    const barSub = document.getElementById("barSub");
+    window.addEventListener("scroll", () => {
+      const y = window.scrollY || 0;
+      if(y > 900){
+        barTitle.textContent = "Ready to order?";
+        barSub.textContent = "Open Fiverr and message the seller with your filters";
+      }else{
+        barTitle.textContent = "Limited daily slots";
+        barSub.textContent = "Click to view the Fiverr service";
+      }
+    }, {passive:true});
+  </script>
+</body>
+</html>
